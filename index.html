@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>todoList 作業</title>
+    <!-- 引入 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .completed {
+            color: silver;
+            text-decoration: line-through;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .border-radius {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: #fff;
+            background-color: red;
+            border: transparent;
+            margin-block: auto;
+        }
+
+        .changeBtn {
+            /* width: 30px;
+            height: 30px; */
+            border: transparent;
+            background-color: transparent;
+            padding-block: auto;
+            text-align: center;
+            align-items: center;
+            margin-right: 10px;
+            margin-top: 5px;
+            font-size: 30px;
+        }
+
+        .changeBtn i {
+            font-size: 28px;
+        }
+
+
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
+
+        :root {
+            --bg: #000000;
+            --clr-1: #00c2ff;
+            --clr-2: #33ff8c;
+            --clr-3: #ffc640;
+            --clr-4: #e54cff;
+            --blur: 1rem;
+            --fs: clamp(3rem, 8vw, 7rem);
+            --ls: clamp(-1.75px, -0.25vw, -3.5px);
+        }
+
+        body {
+            background-color: #000000;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-family: "Inter", "DM Sans", Arial, sans-serif;
+        }
+
+        *,
+        *::befor e,
+        *::after {
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .title {
+            font-size: var(--fs);
+            font-weight: 800;
+            letter-spacing: var(--ls);
+            position: relative;
+            overflow: hidden;
+            background: var(--bg);
+            margin-block: 20px;
+            text-align: center;
+
+        }
+
+
+        .aurora {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            mix-blend-mode: darken;
+            pointer-events: none;
+        }
+
+        .aurora__item {
+            overflow: hidden;
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background-color: var(--clr-1);
+            border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+            filter: blur(var(--blur));
+            mix-blend-mode: overlay;
+        }
+
+        .aurora__item:nth-of-type(1) {
+            top: -50%;
+            animation: aurora-border 6s ease-in-out infinite,
+                aurora-1 12s ease-in-out infinite alternate;
+        }
+
+        .aurora__item:nth-of-type(2) {
+            background-color: var(--clr-3);
+            right: 0;
+            top: 0;
+            animation: aurora-border 6s ease-in-out infinite,
+                aurora-2 12s ease-in-out infinite alternate;
+        }
+
+        .aurora__item:nth-of-type(3) {
+            background-color: var(--clr-2);
+            left: 0;
+            bottom: 0;
+            animation: aurora-border 6s ease-in-out infinite,
+                aurora-3 8s ease-in-out infinite alternate;
+        }
+
+        .aurora__item:nth-of-type(4) {
+            background-color: var(--clr-4);
+            right: 0;
+            bottom: -50%;
+            animation: aurora-border 6s ease-in-out infinite,
+                aurora-4 24s ease-in-out infinite alternate;
+        }
+
+        @keyframes aurora-1 {
+            0% {
+                top: 0;
+                right: 0;
+            }
+
+            50% {
+                top: 100%;
+                right: 75%;
+            }
+
+            75% {
+                top: 100%;
+                right: 25%;
+            }
+
+            100% {
+                top: 0;
+                right: 0;
+            }
+        }
+
+        @keyframes aurora-2 {
+            0% {
+                top: -50%;
+                left: 0%;
+            }
+
+            60% {
+                top: 100%;
+                left: 75%;
+            }
+
+            85% {
+                top: 100%;
+                left: 25%;
+            }
+
+            100% {
+                top: -50%;
+                left: 0%;
+            }
+        }
+
+        @keyframes aurora-3 {
+            0% {
+                bottom: 0;
+                left: 0;
+            }
+
+            40% {
+                bottom: 100%;
+                left: 75%;
+            }
+
+            65% {
+                bottom: 40%;
+                left: 50%;
+            }
+
+            100% {
+                bottom: 0;
+                left: 0;
+            }
+        }
+
+        @keyframes aurora-4 {
+            0% {
+                bottom: -50%;
+                right: 0;
+            }
+
+            50% {
+                bottom: 0%;
+                right: 40%;
+            }
+
+            90% {
+                bottom: 50%;
+                right: 25%;
+            }
+
+            100% {
+                bottom: -50%;
+                right: 0;
+            }
+        }
+
+        @keyframes aurora-border {
+            0% {
+                border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+            }
+
+            25% {
+                border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%;
+            }
+
+            50% {
+                border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%;
+            }
+
+            75% {
+                border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%;
+            }
+
+            100% {
+                border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    </div>
+    <div class="container">
+        <div class="row d-flex">
+            <h1 class="title">TodoList
+                <div class="aurora">
+                    <div class="aurora__item"></div>
+                    <div class="aurora__item"></div>
+                    <div class="aurora__item"></div>
+                    <div class="aurora__item"></div>
+                </div>
+            </h1>
+            <div class="col-3"></div>
+            <div class="col-6">
+                <!-- todo -->
+                <div lass="justify-content-center">
+                    <!-- 輸入欄位 -->
+                    <!-- autofocus 自動聚焦 -->
+                    <!-- autocomplete  是否出現歷史搜尋紀錄 -->
+                    <input type="text" class="form-control todoAdd" autofocus autocomplete="off" placeholder="按Enter發送">
+                    <!-- <input type="button" id="btnAdd" value="Add"> -->
+                    <!-- ul -->
+                    <ul class="list-group mt-3 listTodo">
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div>剩餘<span class="remaining">?</span>項工作</div>
+                    <button class="btn btn-warning completedDel">刪除已完成事項</button>
+                </div>
+                <a href="https://api.jquery.com/category/traversing/">選擇器官方文件</a>|<a href="https:google.com"></a>|<a
+                    href="/動畫effects.html">動畫</a>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+    <!-- js -->
+    <script>
+        $(function () {
+            // 計算剩餘未完成的工作數量函式
+            function updateRemaining() {
+                let remainingCount = $('.listTodo').find('.checkBox:not(:checked)').length;
+                $('.remaining').text(remainingCount);
+            }
+
+            $('a[href^="https"]').attr('target', '_blank');
+
+
+
+            // 加入使用者輸入文字
+            $('.todoAdd').keydown(function (event) {
+                console.log(event.key);
+                // 判定enter發送資料
+                if (event.key === 'Enter') {
+                    // 宣告輸入者的值
+                    let todo = $('.todoAdd').val();
+                    // 將li加上
+
+                    const datas = (
+                        `<li class="list-group-item">
+                            <div class="todoBox d-flex justify-content-between">
+                                <input class="checkBox" type="checkbox"
+                                    class="form-check-input me-3 my-auto" style="font-size:26px">
+                                <input class="todoContent  form-control-plaintext " value="${todo}" disabled>
+                               
+                                    
+                                <i class="fa-solid fa-pen  changeBtn" style="color: #307bfd; " role="button"></i>
+                               
+                                <button class="border-radius closed">X</button>
+                            </div></div>
+                        </li>`
+                    );
+                    // 做出動畫效果
+                    // 先加上隱藏著的內容  再用動畫效果顯示
+                    $(datas).hide().appendTo('.listTodo').slideDown(500);
+
+
+                    // 清空使用者輸入文字
+                    $('.todoAdd').val('');
+                    // 加入判定剩餘數的函式
+                    updateRemaining();
+                }
+            });
+            // checkbox + 刪除線   
+            $('.listTodo').on('click', '.checkBox', function (event) {
+                // $(this).parent('.todoBox').children('.todoContent').toggleClass('completed');
+
+                console.log($(this)); //.checkBox
+                console.log($(this).next()); //.todoContent
+                $(this).next().toggleClass('completed');
+
+            });
+            // 刪除按鈕
+            $('.listTodo').on('click', '.closed', function (event) {
+                // 最近的指定父元素
+                $(this).parents('li').slideUp(500, function () {
+                    $(this).remove();
+                });
+
+                updateRemaining();
+                // .closest = 指定最近的一個元素
+                // 加入判定剩餘數的函式
+                updateRemaining();
+            });
+
+            // 清除全部已完成的代辦事項
+            $('.completedDel').on('click', function () {
+                $('.completed').parents('li').fadeOut(500, function () {
+                    $('.completed').parents('li').remove();
+                });
+                // .remove()
+                // .closest = 指定最近的一個元素
+                // 加入判定剩餘數的函式
+                updateRemaining();
+            });
+
+            // 點擊 .changeBtn  讓 input 取消 disabled  並加上focus
+            $('.listTodo').on('click', ".changeBtn", function (event) {
+                $(this).parent('.todoBox').children('.todoContent').removeAttr('disabled');
+                $(this).parent('.todoBox').children('.todoContent').focus();
+
+            });
+            // 修改後  離開focus 讓 input 加上 disabled鎖定  
+            $('.listTodo').on('blur', ".todoContent", function (event) {
+                $(this).attr('disabled', true);
+                // 加入判定剩餘數的函式
+                updateRemaining();
+            });
+        })
+
+
+
+    </script>
+    <!-- 引入 -->
+    <script type="text/javascript" color="255, 204, 255" pointColor="46,139,87" opacity="1" zIndex="-100" count="100"
+        src="https://cdnjs.cloudflare.com/ajax/libs/canvas-nest.js/2.0.4/canvas-nest.js"
+        integrity="sha512-P+NGabN/TJDOnCVOFJO+E06TBm4i+M8dTT91lWg/8UpwLrzicEXIypmABPpA47D0x6r+yxFHjYIZKWhc1h7xlQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./sakura.js"></script>
+</body>
+
+</html>
